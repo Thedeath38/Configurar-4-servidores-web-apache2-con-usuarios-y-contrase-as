@@ -34,7 +34,7 @@
   **dns-nameservers** = ip del servidor de DNS. En mi caso le pongo la misma que address porque este pc va a actuar de servidor de DNS.
 
   2. Reiniciamos la tarjeta de red con uno de estos comandos  
-  `sudo service networking restart`
+  `sudo service networking restart`  
   `sudo /etc/init.d/networking restart`  
   Si no le a funcionado los anteriores reinicia el pc  
   `sudo reboot`  
@@ -46,5 +46,210 @@
     `sudo apt-get install bind9`
 
 ### **2.2. Configurar Servidor Dns**
+  1. Configuraremos el siguiente fichero  
+    `sudo nano /etc/bind/named.conf.local`  
+    Con la siguiente configuracion:
+      ~~~
+      //
+      // Do any local configuration here
+      //
+
+      // Consider adding the 1918 zones here, if they are not used in your
+      // organization
+      //include "/etc/bind/zones.rfc1918";
+
+      zone "gato.com"{
+            type master;
+            file "/etc/bind/rd.gato.com";
+      };
+
+      zone "mosquito.com"{
+            type master;
+            file "/etc/bind/rd.mosquito.com";
+      };
+
+      zone "escherichiacoli.es"{
+            type master;
+            file "/etc/bind/rd.escherichiacoli.es";
+      };
+
+      zone "chip555.org"{
+            type master;
+            file "/etc/bind/rd.chip555.org";
+      };
+
+      //resolucion inversa
+
+      zone "1.168.192.in-addr.arpa"{
+            type master;
+            file "/etc/bind/ri.192.168.1";
+      };
+      ~~~
+  2. Configuraremos en dns del gato.com  
+    `sudo nano /etc/bind/rd.gato.com`  
+    Con la siguiente configuracion:  
+      ~~~
+      $TTL 38400
+
+      @ IN SOA servidor01.gato.com. correoadmin.gato.com. (
+              2017041000;   //num serie
+              28800;        //refresco
+              3600;         //reintentos
+              604800;       //caducidad
+              38400);       // tiempo en caché
+
+      @ IN NS servidor01.gato.com.
+      servidor01.gato.com. IN A 192.168.1.210
+      WWW IN CNAME servidor01.gato.com.
+      ~~~
+
+  3. Configuraremos en dns del mosquito.com  
+    `sudo nano /etc/bind/rd.mosquito.com`  
+    Con la siguiente configuracion:  
+      ~~~
+      $TTL 38400
+
+      @ IN SOA servidor01.mosquito.com. correoadmin.mosquito.com. (
+              2017041000;   //num serie
+              28800;        //refresco
+              3600;         //reintentos
+              604800;       //caducidad
+              38400);       // tiempo en caché
+
+      @ IN NS servidor01.mosquito.com.
+      servidor01.mosquito.com. IN A 192.168.1.210
+      WWW IN CNAME servidor01.mosquito.com.
+      ~~~
+
+    4. Configuraremos en dns del escherichiacoli.es  
+      `sudo nano /etc/bind/rd.escherichiacoli.es`  
+      Con la siguiente configuracion:  
+        ~~~
+        $TTL 38400
+
+        @ IN SOA servidor01.escherichiacoli.es. correoadmin.escherichiacoli.es. (
+                2017041000;   //num serie
+                28800;        //refresco
+                3600;         //reintentos
+                604800;       //caducidad
+                38400);       // tiempo en caché
+
+        @ IN NS servidor01.escherichiacoli.es.
+        servidor01.escherichiacoli.es. IN A 192.168.1.210
+        WWW IN CNAME servidor01.escherichiacoli.es.
+        ~~~
+
+    5. Configuraremos en dns del chip555.org  
+      `sudo nano /etc/bind/rd.chip555.org`  
+      Con la siguiente configuracion:  
+        ~~~
+        $TTL 38400
+
+        @ IN SOA servidor01.chip555.org. correoadmin.chip555.org. (
+                2017041000;   //num serie
+                28800;        //refresco
+                3600;         //reintentos
+                604800;       //caducidad
+                38400);       // tiempo en caché
+
+        @ IN NS servidor01.chip555.org.
+        servidor01.chip555.org. IN A 192.168.1.210
+        WWW IN CNAME servidor01.chip555.org.
+        ~~~
+
+    6. Configuraremos en dns inversa 192.168.1  
+      `sudo nano /etc/bind/ri.192.168.1`  
+      Con la siguiente configuracion:
+        ~~~
+        $TTL 38400
+
+        @ IN SOA servidor01.sitioa.net. correoadmin.sitioa.net. (
+          2017032100;   //num serie
+          28800;        //refresco
+          3600;         //reintentos
+          604800;       //caducidad
+          38400);       // tiempo en caché
+
+        @ IN NS servidor01.
+        210 IN PTR servidor01.gato.com.
+        210 IN PTR servidor01.mosquito.com.
+        210 IN PTR servidor01.escherichiacoli.es.
+        210 IN PTR servidor01.chip555.org.
+
+        ~~~
+    7. Una vez configurado reinicimos el servicio con una de estas opciones:  
+      `sudo service bind9 restart`  
+      `sudo /etc/init.d/bind9 restart`
+
 
 ## **3. Instalar y Configurar Apache2**
+  1. Instalar apache2 con el siguiente comando:  
+    `sudo apt-get install apache2`
+
+  2. Crear una estructura de directorios que alojará los datos del sitio que vamos a proporcionar a nuestros visitantes.  
+
+      ~~~
+      sudo mkdir -p /var/www/gato.com/html
+      sudo mkdir -p /var/www/mosquito.com/html
+      sudo mkdir -p /var/www/escherichiacoli.es/html
+      sudo mkdir -p /var/www/chip555.org/html
+      ~~~
+
+  3. Creamos los sitios web
+
+      1. Creamos el index de gato.com  
+        `sudo nano /var/www/gato.com/html/index.html`
+          ~~~
+          <html>
+                  <head>
+                          <title>Un gatito</title>
+                  </head>
+                  <body>
+                          <img src="https://www.cerotec.net/aplicaciones/pizarra/data/foto/por-que-los-gatos-ronronean.jpg"/>
+                  </body>
+          </html>
+          ~~~
+      2. Creamos el index de mosquito.com  
+        `sudo nano /var/www/mosquito.com/html/index.html`
+          ~~~
+          <html>
+                <head>
+                        <title>Un mosquito tigre</title>
+                </head>
+                <body>
+                        <img src="http://www.abc.es/Media/201507/05/mosquito-tigre-foto--644x362.jpg"/>
+                </body>
+          </html>
+          ~~~
+      3. Creamos el index de escherichiacoli.es  
+        `sudo nano /var/www/escherichiacoli.es/html/index.html`
+          ~~~
+          <html>
+                  <head>
+                          <title>escherichiacoli</title>
+                  </head>
+                  <body>
+                          <img src="http://lopezcorrea.com/14b/images/E.Coli.jpg"/>
+                  </body>
+          </html>
+          ~~~
+      4. Creamos el index de chip555.org  
+        `sudo nano /var/www/chip555.org/html/index.html`
+          ~~~
+          <html>
+                  <head>
+                          <title>Un chip555</title>
+                  </head>
+                  <body>
+                          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Signetics_NE555N.JPG/245px-Signetics_NE555N.JPG"/>
+                  </body>
+          </html>
+          ~~~
+  4. Apache viene con un archivo virtual host por defecto llamado 000-default.conf. Vamos a copiarlo para crear un archivo virtual host para cada uno de nuestros dominios.
+  ~~~
+  sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/gato.com.conf
+  sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/mosquito.com.conf
+  sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/escherichiacoli.es.conf
+  sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/chip555.org.conf
+  ~~~
+  5. Configuraremos los ficheros virtual host
