@@ -2,9 +2,9 @@
 
 # <center>**CONFIGURACION DE 4 SERVIDORES WEB CON APACHE 2 Y USUARIOS**</center>
 ## **<span style="color:#68BCFF;">INDICE</span>**
-* **[1. Configurar Tarjeta de red Estatica](#1.-Configurar-Tarjeta-de-red-Estatica)**  
-* **[2. Instalar y Configurar Servidor Dns](#2.-Instalar-y-Configurar-Servidor-Dns)**
-* **[3. Instalar y Configurar Apache2](#3.-Instalar-y-Configurar-Apache2)**
+* **[1. Configurar Tarjeta de red Estatica](#1-configurar-tarjeta-de-red-estatica)**  
+* **[2. Instalar y Configurar Servidor Dns](#2-instalar-y-configurar-servidor-dns)**
+* **[3. Instalar y Configurar Apache2](#3-instalar-y-configurar-apache2)**
 
 ## **1. Configurar Tarjeta de red Estatica**  
   1. configuramos la Tarjeta de red estaticamente, por si reinicias que el servidor,el dhcp del router no te de otra ip  
