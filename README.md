@@ -356,5 +356,3 @@
 
 ## **4 Prueba del correcto funcionamiento**
 [![Prueba Video](https://img.youtube.com/vi/0hzODNjUlCM/0.jpg)](https://www.youtube.com/watch?v=0hzODNjUlCM)
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/0hzODNjUlCM" frameborder="0" allowfullscreen></iframe>
