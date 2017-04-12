@@ -253,3 +253,106 @@
   sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/chip555.org.conf
   ~~~
   5. Configuraremos los ficheros virtual host
+    1. Sitio de gato.com  
+    `sudo nano /etc/apache2/sites-available/gato.com.conf`  
+      ~~~
+        <VirtualHost *:80>
+            ServerAdmin admin@gato.com
+            ServerName gato.com
+            ServerAlias www.gato.com
+            DocumentRoot /var/www/gato.com/html
+            ErrorLog ${APACHE_LOG_DIR}/error.log
+            CustomLog ${APACHE_LOG_DIR}/access.log combined
+        </VirtualHost>
+      ~~~
+
+    2. Sitio de mosquito.com  
+    `sudo nano /etc/apache2/sites-available/mosquito.com.conf`  
+      ~~~
+        <VirtualHost *:80>
+            ServerAdmin admin@mosquito.com
+            ServerName mosquito.com
+            ServerAlias www.mosquito.com
+            DocumentRoot /var/www/mosquito.com/html
+            ErrorLog ${APACHE_LOG_DIR}/error.log
+            CustomLog ${APACHE_LOG_DIR}/access.log combined
+        </VirtualHost>
+      ~~~
+    3. Sitio de escherichiacoli.es  
+    `sudo nano /etc/apache2/sites-available/escherichiacoli.es.conf`  
+      ~~~
+        <VirtualHost *:80>
+            ServerAdmin admin@escherichiacoli.es
+            ServerName escherichiacoli.es
+            ServerAlias www.escherichiacoli.es
+            DocumentRoot /var/www/escherichiacoli.es/html
+            ErrorLog ${APACHE_LOG_DIR}/error.log
+            CustomLog ${APACHE_LOG_DIR}/access.log combined
+        </VirtualHost>
+      ~~~
+    4. Sitio de chip555.org  
+    `sudo nano /etc/apache2/sites-available/chip555.org.conf`  
+      ~~~
+        <VirtualHost *:80>
+            ServerAdmin admin@chip555.org
+            ServerName chip555.org
+            ServerAlias www.chip555.org
+            DocumentRoot /var/www/chip555.org/html
+            ErrorLog ${APACHE_LOG_DIR}/error.log
+            CustomLog ${APACHE_LOG_DIR}/access.log combined
+        </VirtualHost>
+      ~~~
+  6. Habilitamos los sitios web que hemos creado con los siguientes commandos  
+    `sudo a2ensite gato.com.conf`  
+    `sudo a2ensite mosquito.com.conf`  
+    `sudo a2ensite escherichiacoli.es.conf`  
+    `sudo a2ensite chip555.org.conf`
+
+  7.  Ahora desactivamos el sitio por defecto de apache2 con el siguiente comando  
+    `sudo a2dissite 000-default.conf`
+
+  8. Por ultimo reiniciamos el servicio de apache2 con uno de estos comandos:  
+    `sudo /etc/init.d/apache2 restart`  
+    `sudo service apache2 restart`
+
+### **3.1 Acceso con usuario y contraseña a las paginas escherichiacoli.es y chip555.org**
+  1. Necesitaremos crear un archivo de contraseñas. Éste archivo debería colocarlo en algún sitio no accesible mediante la Web. Para crear un archivo de contraseñas, usaremos la utilidad htpasswd que viene con Apache. Para crear el archivo:  
+      ~~~
+      sudo htpasswd -c /var/www/sitioa.com/passwords user1
+      sudo htpasswd -c /var/www/sitioa.com/passwords user2
+      sudo htpasswd  /var/www/sitioa.com/passwords user3
+      ~~~
+      La opción '-c' se utiliza para crear el fichero.  
+
+  2. Añadiremos a nuestro fichero de configuracion de apache:  
+    `sudo nano /etc/apache2/apache2.conf`  
+        ~~~
+        <Directory /var/www/escherichiacoli.es/html>
+            AuthType Basic
+            AuthName "ACCESO RESTRINGIDO."
+            AuthUserFile /var/www/escherichiacoli.es/passwords
+            Require user user01
+            Options Indexes FollowSymLinks MultiViews
+            AllowOverride  none
+            Order Allow,deny
+            allow from all
+        </Directory>
+
+        <Directory /var/www/chip555.org/html>
+            AuthType Basic
+            AuthName "ACCESO RESTRINGIDO."
+            AuthUserFile /var/www/chip555.org/passwords
+            Require valid-user
+            Options Indexes FollowSymLinks MultiViews
+            AllowOverride  none
+            Order Allow,deny
+            allow from all
+        </Directory>
+        ~~~
+      Si sustituimos 'Require user user1' por 'Require valid-user ', tendrán acceso todos los usuarios del fichero passwords.
+  3. Reiniciamos el demonio y sólo tendrá acceso el user1 a la pagina escherichiacoli.es y a la pagina chip555.org tendran acceso todos los usuarios del archivo passwords situado en `/var/www/chip555.org/passwords` para reiniciar el servicio/demonio uno de estos comandos.  
+  `sudo /etc/init.d/apache2 restart`  
+  `sudo service apache2 restart`
+
+## **4 Prueba del correcto funcionamiento**
+![]()
