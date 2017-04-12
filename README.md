@@ -4,7 +4,11 @@
 ## **<span style="color:#68BCFF;">INDICE</span>**
 * **[1. Configurar Tarjeta de red Estatica](#1-configurar-tarjeta-de-red-estatica)**  
 * **[2. Instalar y Configurar Servidor Dns](#2-instalar-y-configurar-servidor-dns)**
+    * **[2.1. Instalar Servidor Dns](#21-instalar-servidor-dns)**
+    * **[2.2. Configurar Servidor Dns](#22-configurar-servidor-dns)**
 * **[3. Instalar y Configurar Apache2](#3-instalar-y-configurar-apache2)**
+    * **[3.1 Acceso con usuario y contraseña a las paginas escherichiacoli.es y chip555.org](#31-acceso-con-usuario-y-contraseña-a-las-paginas-escherichiacolies-y-chip555org)**
+* **[4. Prueba del correcto funcionamiento](#4-prueba-del-correcto-funcionamiento)**
 
 ## **1. Configurar Tarjeta de red Estatica**  
   1. configuramos la Tarjeta de red estaticamente, por si reinicias que el servidor,el dhcp del router no te de otra ip  
