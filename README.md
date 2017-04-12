@@ -327,27 +327,27 @@
   2. Añadiremos a nuestro fichero de configuracion de apache:  
     `sudo nano /etc/apache2/apache2.conf`  
         ~~~
-        <Directory /var/www/escherichiacoli.es/html>
-            AuthType Basic
-            AuthName "ACCESO RESTRINGIDO."
-            AuthUserFile /var/www/escherichiacoli.es/passwords
-            Require user user01
-            Options Indexes FollowSymLinks MultiViews
-            AllowOverride  none
-            Order Allow,deny
-            allow from all
-        </Directory>
+          <Directory /var/www/escherichiacoli.es/html>
+              AuthType Basic
+              AuthName "ACCESO RESTRINGIDO."
+              AuthUserFile /var/www/escherichiacoli.es/passwords
+              Require user user01
+              Options Indexes FollowSymLinks MultiViews
+              AllowOverride  none
+              Order Allow,deny
+              allow from all
+          </Directory>
 
-        <Directory /var/www/chip555.org/html>
-            AuthType Basic
-            AuthName "ACCESO RESTRINGIDO."
-            AuthUserFile /var/www/chip555.org/passwords
-            Require valid-user
-            Options Indexes FollowSymLinks MultiViews
-            AllowOverride  none
-            Order Allow,deny
-            allow from all
-        </Directory>
+          <Directory /var/www/chip555.org/html>
+              AuthType Basic
+              AuthName "ACCESO RESTRINGIDO."
+              AuthUserFile /var/www/chip555.org/passwords
+              Require valid-user
+              Options Indexes FollowSymLinks MultiViews
+              AllowOverride  none
+              Order Allow,deny
+              allow from all
+          </Directory>
         ~~~
       Si sustituimos 'Require user user1' por 'Require valid-user ', tendrán acceso todos los usuarios del fichero passwords.
   3. Reiniciamos el demonio y sólo tendrá acceso el user1 a la pagina escherichiacoli.es y a la pagina chip555.org tendran acceso todos los usuarios del archivo passwords situado en `/var/www/chip555.org/passwords` para reiniciar el servicio/demonio uno de estos comandos.  
