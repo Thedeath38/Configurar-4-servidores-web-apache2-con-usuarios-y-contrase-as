@@ -250,62 +250,62 @@
           </html>
           ~~~
   4. Apache viene con un archivo virtual host por defecto llamado 000-default.conf. Vamos a copiarlo para crear un archivo virtual host para cada uno de nuestros dominios.
-  ~~~
-   sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/gato.com.conf
-   sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/mosquito.com.conf
-   sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/escherichiacoli.es.conf
-   sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/chip555.org.conf
-  ~~~
- 5. Configuraremos los ficheros virtual host
-    1. Sitio de gato.com  
-    `sudo nano /etc/apache2/sites-available/gato.com.conf`  
       ~~~
-         <VirtualHost *:80>  
-               ServerAdmin admin@gato.com
+      sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/gato.com.conf
+      sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/mosquito.com.conf
+      sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/escherichiacoli.es.conf
+      sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/chip555.org.conf
+      ~~~
+   5. Configuraremos los ficheros virtual host
+       1. Sitio de gato.com  
+       `sudo nano /etc/apache2/sites-available/gato.com.conf`  
+           ~~~
+           <VirtualHost *:80>  
+              ServerAdmin admin@gato.com
                ServerName gato.com
                ServerAlias www.gato.com
                DocumentRoot /var/www/gato.com/html
                ErrorLog ${APACHE_LOG_DIR}/error.log
                CustomLog ${APACHE_LOG_DIR}/access.log combined
-         </VirtualHost>
-      ~~~
+           </VirtualHost>
+           ~~~
 
-    2. Sitio de mosquito.com  
-    `sudo nano /etc/apache2/sites-available/mosquito.com.conf`  
-      ~~~
-        <VirtualHost *:80>
-            ServerAdmin admin@mosquito.com
-            ServerName mosquito.com
-            ServerAlias www.mosquito.com
-            DocumentRoot /var/www/mosquito.com/html
-            ErrorLog ${APACHE_LOG_DIR}/error.log
-            CustomLog ${APACHE_LOG_DIR}/access.log combined
-        </VirtualHost>
-      ~~~
-    3. Sitio de escherichiacoli.es  
-    `sudo nano /etc/apache2/sites-available/escherichiacoli.es.conf`  
-      ~~~
-        <VirtualHost *:80>
-            ServerAdmin admin@escherichiacoli.es
-            ServerName escherichiacoli.es
-            ServerAlias www.escherichiacoli.es
-            DocumentRoot /var/www/escherichiacoli.es/html
-            ErrorLog ${APACHE_LOG_DIR}/error.log
-            CustomLog ${APACHE_LOG_DIR}/access.log combined
-        </VirtualHost>
-      ~~~
-    4. Sitio de chip555.org  
-    `sudo nano /etc/apache2/sites-available/chip555.org.conf`  
-      ~~~
-        <VirtualHost *:80>
-            ServerAdmin admin@chip555.org
-            ServerName chip555.org
-            ServerAlias www.chip555.org
-            DocumentRoot /var/www/chip555.org/html
-            ErrorLog ${APACHE_LOG_DIR}/error.log
-            CustomLog ${APACHE_LOG_DIR}/access.log combined
-        </VirtualHost>
-      ~~~
+       2. Sitio de mosquito.com  
+       `sudo nano /etc/apache2/sites-available/mosquito.com.conf`  
+           ~~~
+           <VirtualHost *:80>
+               ServerAdmin admin@mosquito.com
+               ServerName mosquito.com
+               ServerAlias www.mosquito.com
+               DocumentRoot /var/www/mosquito.com/html
+               ErrorLog ${APACHE_LOG_DIR}/error.log
+               CustomLog ${APACHE_LOG_DIR}/access.log combined
+           </VirtualHost>
+           ~~~
+       3. Sitio de escherichiacoli.es  
+       `sudo nano /etc/apache2/sites-available/escherichiacoli.es.conf`  
+           ~~~
+           <VirtualHost *:80>
+               ServerAdmin admin@escherichiacoli.es
+               ServerName escherichiacoli.es
+               ServerAlias www.escherichiacoli.es
+               DocumentRoot /var/www/escherichiacoli.es/html
+               ErrorLog ${APACHE_LOG_DIR}/error.log
+               CustomLog ${APACHE_LOG_DIR}/access.log combined
+           </VirtualHost>
+           ~~~
+       4. Sitio de chip555.org  
+       `sudo nano /etc/apache2/sites-available/chip555.org.conf`  
+           ~~~
+           <VirtualHost *:80>
+               ServerAdmin admin@chip555.org
+               ServerName chip555.org
+               ServerAlias www.chip555.org
+               DocumentRoot /var/www/chip555.org/html
+               ErrorLog ${APACHE_LOG_DIR}/error.log
+               CustomLog ${APACHE_LOG_DIR}/access.log combined
+           </VirtualHost>
+           ~~~
   6. Habilitamos los sitios web que hemos creado con los siguientes commandos  
     `sudo a2ensite gato.com.conf`  
     `sudo a2ensite mosquito.com.conf`  
