@@ -251,24 +251,24 @@
           ~~~
   4. Apache viene con un archivo virtual host por defecto llamado 000-default.conf. Vamos a copiarlo para crear un archivo virtual host para cada uno de nuestros dominios.
   ~~~
-  sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/gato.com.conf
-  sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/mosquito.com.conf
-  sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/escherichiacoli.es.conf
-  sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/chip555.org.conf
+   sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/gato.com.conf
+   sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/mosquito.com.conf
+   sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/escherichiacoli.es.conf
+   sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/chip555.org.conf
   ~~~
   5. Configuraremos los ficheros virtual host
     1. Sitio de gato.com  
     `sudo nano /etc/apache2/sites-available/gato.com.conf`  
-      ~~~
-        <VirtualHost *:80>
-            ServerAdmin admin@gato.com
-            ServerName gato.com
-            ServerAlias www.gato.com
-            DocumentRoot /var/www/gato.com/html
-            ErrorLog ${APACHE_LOG_DIR}/error.log
-            CustomLog ${APACHE_LOG_DIR}/access.log combined
-        </VirtualHost>
-      ~~~
+      ```
+         <VirtualHost *:80>
+               ServerAdmin admin@gato.com
+               ServerName gato.com
+               ServerAlias www.gato.com
+               DocumentRoot /var/www/gato.com/html
+               ErrorLog ${APACHE_LOG_DIR}/error.log
+               CustomLog ${APACHE_LOG_DIR}/access.log combined
+         </VirtualHost>
+      ```
 
     2. Sitio de mosquito.com  
     `sudo nano /etc/apache2/sites-available/mosquito.com.conf`  
@@ -353,6 +353,7 @@
               allow from all
           </Directory>
         ~~~
+        
       Si sustituimos 'Require user user1' por 'Require valid-user ', tendrán acceso todos los usuarios del fichero passwords.
   3. Reiniciamos el demonio y sólo tendrá acceso el user1 a la pagina escherichiacoli.es y a la pagina chip555.org tendran acceso todos los usuarios del archivo passwords situado en `/var/www/chip555.org/passwords` para reiniciar el servicio/demonio uno de estos comandos.  
   `sudo /etc/init.d/apache2 restart`  
