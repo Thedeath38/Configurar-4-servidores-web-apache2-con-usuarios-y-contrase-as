@@ -256,11 +256,11 @@
    sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/escherichiacoli.es.conf
    sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/chip555.org.conf
   ~~~
-  5. Configuraremos los ficheros virtual host
+ 5. Configuraremos los ficheros virtual host
     1. Sitio de gato.com  
     `sudo nano /etc/apache2/sites-available/gato.com.conf`  
-      ```
-         <VirtualHost *:80>
+      ~~~
+         <VirtualHost *:80>  
                ServerAdmin admin@gato.com
                ServerName gato.com
                ServerAlias www.gato.com
@@ -268,7 +268,7 @@
                ErrorLog ${APACHE_LOG_DIR}/error.log
                CustomLog ${APACHE_LOG_DIR}/access.log combined
          </VirtualHost>
-      ```
+      ~~~
 
     2. Sitio de mosquito.com  
     `sudo nano /etc/apache2/sites-available/mosquito.com.conf`  
